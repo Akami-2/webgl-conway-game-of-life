@@ -88,7 +88,7 @@ function start(){
 
         uTime += 0.01;
 
-        //resize();
+        resize();
         gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);  
 
         // Pass 2: Draw to screen
@@ -96,14 +96,25 @@ function start(){
         gl.clearColor(0.0, 1.0, 0.0, 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT);
 
-        // BACKGROUND PREP
-            gl.useProgram(shader_basic);
-            gl.uniform1f(gl.getUniformLocation(shader_basic, "time"), uTime);
-            gl.uniform2f(gl.getUniformLocation(shader_basic, "resolution"), canvas.width, canvas.height);
-            gl.uniform2f(gl.getUniformLocation(shader_basic, "trans"), 0.0, 0.0);
-            gl.uniform2f(gl.getUniformLocation(shader_basic, "scale"), 0.1, 0.1);
-        // END
-        gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+        // gl.useProgram(shader_basic);
+        // gl.uniform1f(gl.getUniformLocation(shader_basic, "time"), uTime);
+        // gl.uniform2f(gl.getUniformLocation(shader_basic, "resolution"), canvas.width, canvas.height);
+        // gl.uniform2f(gl.getUniformLocation(shader_basic, "trans"), -0.5, -0.5);
+        // gl.uniform2f(gl.getUniformLocation(shader_basic, "scale"), 0.5, 0.5);
+        // gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+
+        gl.useProgram(shader_basic);
+        gl.uniform1f(gl.getUniformLocation(shader_basic, "time"), uTime);
+        gl.uniform2f(gl.getUniformLocation(shader_basic, "resolution"), canvas.width, canvas.height);
+        gl.uniform2f(gl.getUniformLocation(shader_basic, "trans"), -0.5, -0.5);
+        gl.uniform2f(gl.getUniformLocation(shader_basic, "scale"), 0.1, 0.1);
+        for (var i = 0; i < 100; i++) {
+            var x_coord = i % 10;
+            var y_coord = Math.floor(i / 10);
+            var grid_spread = 5.0; // sort of maps us from a (0 to 10) in x and y space (a 10 x 10 grid) to a (-1 to 1) in x and y space after dividing our x_coord and y_coord by this (a 2x2 grid)
+            gl.uniform2f(gl.getUniformLocation(shader_basic, "trans"), -0.90 + (x_coord / grid_spread), -0.90 + (y_coord / grid_spread));
+            gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
+        }
 
         // gl.useProgram(shader_screen);
 
@@ -119,6 +130,44 @@ function start(){
         requestAnimationFrame(render);
     }
     render();
+
+
+    function resize() {
+        // Lookup the size the browser is displaying the canvas.
+        var displayWidth  = canvas.clientWidth;
+        var displayHeight = canvas.clientHeight;
+
+        // TODO: CHECK IF THERE IS AN EVENT LISTENER FOR RESIZING (THE WINDOW)
+
+        //console.log("ENTERED RESIZING FUNCTION");
+
+        // Check if the canvas is not the same size.
+        if (canvas.width  != displayWidth ||
+            canvas.height != displayHeight) {
+
+            console.log("RESIZING CANVAS");
+
+            // Make the canvas the same size
+            canvas.width  = displayWidth;
+            canvas.height = displayHeight;
+
+            // video.width  = displayWidth;
+            // video.height = displayHeight;
+
+            // gl.bindTexture(gl.TEXTURE_2D, color1Texture);
+            // gl.texImage2D(gl.TEXTURE_2D,
+            //     0,
+            //     gl.RGBA,
+            //     canvas.width,
+            //     canvas.height,
+            //     0,
+            //     gl.RGBA,
+            //     gl.UNSIGNED_BYTE,
+            //     null
+            // );
+
+        }
+    }
 
 
 }

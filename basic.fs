@@ -8,6 +8,7 @@ precision highp float;
 precision highp int;
 
 uniform float time;
+uniform int alive;
 
 in vec2 v_pos;
 
@@ -51,7 +52,16 @@ vec4 sampleColor(){
     int cell_number = y_coord_i * int(res_mul_x_f) + x_coord_i;
 
     // return measureInt(cell_number);
-    return vec4(1.0, 1.0, 0.0, 1.0);
+    
+    if (alive == 1) {
+        return vec4(0.0, 0.0, 1.0, 1.0);
+    }
+    else {
+        return vec4(0.0, 1.0, 0.0, 1.0);
+    }
+
+    // return vec4(1.0, 1.0, 0.0, 1.0);
+    
     // return measureFloat(float(cell_number));
 
 }

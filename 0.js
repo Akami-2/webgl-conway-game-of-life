@@ -79,7 +79,6 @@ function start(){
     
     // gl.bindVertexArray(null);
 
-
     // Conway game globals
     var time = 0.0;
     var switch_due_to_time_bool = 0;

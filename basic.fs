@@ -2,81 +2,106 @@
 
 
 var basic_fs_text = `
-
 #version 300 es
+// #version 300 es
+// precision highp float;
+// precision highp int;
+
+// uniform float time;
+// uniform int alive;
+
+// in vec2 v_pos;
+
+// out vec4 FragColor;
+
+// vec4 measureFloat(float measure_number_float){
+//     return vec4(
+//         float( mod ( measure_number_float, 60.0 ) ) / 60.0,
+//         float( mod ( measure_number_float, 3600.0 ) ) / (60.0 * 60.0),
+//         float( mod ( measure_number_float, 216000.0 ) ) / (60.0 * 60.0 * 60.0),
+//         1.0
+//     );
+// }
+
+// vec4 measureInt( int measure_number_int ){
+//     return vec4(
+//         float( measure_number_int % 60 ) / 60.0,
+//         float( measure_number_int % 3600 ) / (60.0 * 60.0),
+//         float( measure_number_int % 216000 ) / (60.0 * 60.0 * 60.0),
+//         1.0
+//     );
+// }
+
+// vec4 sampleColor(){
+
+//     int x_coord_i, y_coord_i = 0;
+//     float x_coord_f, y_coord_f = 0.0;
+
+//     float res_mul_x_f = 20.0; // mul = multiplier
+//     float res_mul_y_f = 20.0; // mul = multiplier
+
+//     x_coord_i = int(v_pos.x * res_mul_x_f);
+//     y_coord_i = int(v_pos.y * res_mul_y_f);
+
+//     // dvec4 doublevec;
+
+//     // return back to float:
+//     x_coord_f = float(x_coord_i) / res_mul_x_f;
+//     y_coord_f = float(y_coord_i) / res_mul_y_f;
+
+//     int cell_number = y_coord_i * int(res_mul_x_f) + x_coord_i;
+
+//     // return measureInt(cell_number);
+    
+//     if (alive == 1) {
+//         return vec4(0.0, 0.0, 1.0, 1.0);
+//     }
+//     else {
+//         return vec4(0.0, 1.0, 0.0, 1.0);
+//     }
+
+//     // return vec4(1.0, 1.0, 0.0, 1.0);
+    
+//     // return measureFloat(float(cell_number));
+
+// }
+
+// void main(void) {
+
+//     FragColor = sampleColor();
+
+// }
+
 precision highp float;
 precision highp int;
 
-uniform float time;
-uniform int alive;
-
 in vec2 v_pos;
-
 out vec4 FragColor;
 
-vec4 measureFloat(float measure_number_float){
-    return vec4(
-        float( mod ( measure_number_float, 60.0 ) ) / 60.0,
-        float( mod ( measure_number_float, 3600.0 ) ) / (60.0 * 60.0),
-        float( mod ( measure_number_float, 216000.0 ) ) / (60.0 * 60.0 * 60.0),
-        1.0
-    );
-}
-
-vec4 measureInt( int measure_number_int ){
-    return vec4(
-        float( measure_number_int % 60 ) / 60.0,
-        float( measure_number_int % 3600 ) / (60.0 * 60.0),
-        float( measure_number_int % 216000 ) / (60.0 * 60.0 * 60.0),
-        1.0
-    );
-}
+uniform int alive;
+uniform float time;
 
 vec4 sampleColor(){
-
-    int x_coord_i, y_coord_i = 0;
-    float x_coord_f, y_coord_f = 0.0;
-
-    float res_mul_x_f = 20.0; // mul = multiplier
-    float res_mul_y_f = 20.0; // mul = multiplier
-
-    x_coord_i = int(v_pos.x * res_mul_x_f);
-    y_coord_i = int(v_pos.y * res_mul_y_f);
-
-    // dvec4 doublevec;
-
-    // return back to float:
-    x_coord_f = float(x_coord_i) / res_mul_x_f;
-    y_coord_f = float(y_coord_i) / res_mul_y_f;
-
-    int cell_number = y_coord_i * int(res_mul_x_f) + x_coord_i;
-
-    // return measureInt(cell_number);
-    
     if (alive == 1) {
         return vec4(0.0, 0.0, 1.0, 1.0);
     }
     else {
         return vec4(0.0, 1.0, 0.0, 1.0);
     }
-
-    // return vec4(1.0, 1.0, 0.0, 1.0);
-    
-    // return measureFloat(float(cell_number));
-
 }
 
 void main(void) {
 
+    // if (alive == 1) {
+    //     FragColor = vec4(0.0, 0.0, 1.0, 1.0);
+    // }
+    // else {
+    //     FragColor = vec4(0.0, 1.0, 0.0, 1.0);
+    // }
+
     FragColor = sampleColor();
 
 }
-
-
-
-
-
-
 
 
 
